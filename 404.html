@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>امیر و نازی | برای همیشه</title>
+    
+    <!-- اضافه کردن فونت زیبای وزیرمتن -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+
+    <style>
+        /* استایل‌های پایه */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', Tahoma, sans-serif;
+            user-select: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* بک‌گراند تاریک‌تر برای درخشش بهتر رنگ‌های صورتی */
+            background: radial-gradient(circle at top, #240510 0%, #080103 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* انیمیشن قلب‌های شناور در پس‌زمینه */
+        .heart-particle {
+            position: absolute;
+            color: rgba(255, 77, 109, 0.4);
+            pointer-events: none;
+            animation: floatUp linear infinite;
+            font-size: 24px;
+            filter: drop-shadow(0 0 5px rgba(255, 77, 109, 0.6));
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(10vh) translateX(0) scale(0); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) translateX(30px) scale(1.5); opacity: 0; }
+        }
+
+        /* نوار ناوبری لوکس */
+        .navbar {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 1, 3, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 77, 109, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff4d6d, #ffb3c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.4);
+        }
+
+        /* منوی سه خط (همبرگری) */
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(to left, #ff4d6d, #ffb3c1);
+            border-radius: 5px;
+            transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        /* منوی کشویی */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 320px;
+            height: 100vh;
+            background: rgba(10, 2, 5, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            padding: 100px 40px 40px 40px;
+            transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+            box-shadow: -10px 0 40px rgba(0,0,0,0.9);
+            border-left: 1px solid rgba(255, 77, 109, 0.2);
+        }
+
+        .nav-menu.active {
+            right: 0;
+        }
+
+        .nav-menu a {
+            color: #efefef;
+            text-decoration: none;
+            padding: 20px 0;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(255, 77, 109, 0.15);
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-menu a:hover {
+            color: #ff4d6d;
+            padding-right: 15px;
+            text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+        }
+
+        /* بخش اصلی (Hero) */
+        .hero {
+            margin-top: 100px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            z-index: 10;
+        }
+
+        /* تپش قلب وسط صفحه */
+        .main-heart {
+            font-size: 4rem;
+            color: #ff4d6d;
+            animation: beat 1s infinite;
+            text-shadow: 0 0 35px #ff4d6d;
+            margin-bottom: 20px;
+        }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.25); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        .title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(to bottom, #ffffff 20%, #ffb3c1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 4px 20px rgba(255, 77, 109, 0.5));
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #ffb3c1;
+            margin-bottom: 50px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        /* ساختار حرفه‌ای روزشمار */
+        .counter-wrap {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 35px 45px;
+            border-radius: 25px;
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 77, 109, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 
+                        inset 0 0 30px rgba(255, 77, 109, 0.08);
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .time-box .number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(180deg, #fff 0%, #ffb3c1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(255, 77, 109, 0.3);
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+
+        .time-box .label {
+            font-size: 1.1rem;
+            color: #ff4d6d;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* بخش شبکه‌های اجتماعی */
+        .support-card {
+            margin-top: 80px;
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 77, 109, 0.15);
+            padding: 35px;
+            border-radius: 24px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .support-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 25px;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .support-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: #ff4d6d;
+            border-radius: 3px;
+            box-shadow: 0 0 10px #ff4d6d;
+        }
+
+        .insta-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .member-row {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 77, 109, 0.1);
+            padding: 15px 25px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .member-row:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 77, 109, 0.08);
+            border-color: rgba(255, 77, 109, 0.4);
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.15);
+        }
+
+        .member-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .member-link {
+            color: #ff4d6d;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            direction: ltr;
+        }
+
+        .member-link:hover {
+            color: #fff;
+            text-shadow: 0 0 15px #ff4d6d;
+        }
+
+        /* ریسپانسیو فوق‌العاده برای موبایل */
+        @media (max-width: 600px) {
+            .title { font-size: 3rem; }
+            .subtitle { font-size: 1rem; margin-bottom: 35px; }
+            .counter-wrap { padding: 20px; gap: 10px; }
+            .time-box { min-width: 70px; padding: 10px; }
+            .time-box .number { font-size: 2.2rem; }
+            .time-box .label { font-size: 0.9rem; }
+            .navbar { padding: 15px 25px; }
+            .logo { font-size: 1.5rem; }
+            .member-row { padding: 15px; flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="heartsContainer"></div>
+
+    <nav class="navbar">
+        <div class="logo">Amir & Nazi</div>
+        <div class="hamburger" id="hamburgerMenu">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <div class="nav-menu" id="sideMenu">
+        <a href="#">صفحه اصلی وب‌سایت</a>
+        <a href="#supportSection">بخش پشتیبانی و ارتباط</a>
+        <a href="https://instagram.com/amo_amir_111" target="_blank">اینستاگرام امیر</a>
+        <a href="https://instagram.com/nazi03909" target="_blank">اینستاگرام نازی</a>
+    </div>
+
+    <main class="hero">
+        <div class="main-heart">♥</div>
+        <h1 class="title">امیر و نازی</h1>
+        <p class="subtitle">روزشمار دقیق پیوند ابدی ما</p>
+
+        <div class="counter-wrap">
+            <div class="time-box">
+                <span class="number" id="days">00</span>
+                <span class="label">روز</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="hours">00</span>
+                <span class="label">ساعت</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="minutes">00</span>
+                <span class="label">دقیقه</span>
+            </div>
+            <div class="time-box">
+                <span class="number" id="seconds">00</span>
+                <span class="label">ثانیه</span>
+            </div>
+        </div>
+
+        <div class="support-card" id="supportSection">
+            <h2 class="support-title">پیج رسمی امیر و نازی</h2>
+            <div class="insta-container">
+                
+                <div class="member-row">
+                    <span class="member-name">امیر حدادی</span>
+                    <a href="https://instagram.com/amo_amir_111" target="_blank" class="member-link">@amo_amir_111</a>
+                </div>
+
+                <div class="member-row">
+                    <span class="member-name">نازی مختاری</span>
+                    <a href="https://instagram.com/nazi03909" target="_blank" class="member-link">@nazi03909</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ==========================================
+        // تنظیم تاریخ دقیق: ۲۵ اردیبهشت ۱۴۰۵، ساعت ۰۹:۳۱
+        // مصادف با 15 May 2026
+        // ==========================================
+        const targetAnniversary = new Date("2026-05-15T09:31:00").getTime();
+
+        function calculateTime() {
+            const currentTime = new Date().getTime();
+            const timeDiff = currentTime - targetAnniversary;
+
+            if (timeDiff > 0) {
+                const totalDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                const totalHours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const totalMinutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const totalSeconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+                document.getElementById("days").textContent = totalDays.toString().padStart(2, '0');
+                document.getElementById("hours").textContent = totalHours.toString().padStart(2, '0');
+                document.getElementById("minutes").textContent = totalMinutes.toString().padStart(2, '0');
+                document.getElementById("seconds").textContent = totalSeconds.toString().padStart(2, '0');
+            }
+        }
+
+        setInterval(calculateTime, 1000);
+        calculateTime();
+
+        // ==========================================
+        // انیمیشن منوی سه خط (همبرگری)
+        // ==========================================
+        const hamburger = document.getElementById("hamburgerMenu");
+        const sideMenu = document.getElementById("sideMenu");
+
+        hamburger.addEventListener("click", () => {
+            sideMenu.classList.toggle("active");
+            
+            if(sideMenu.classList.contains("active")) {
+                hamburger.children[0].style.transform = "rotate(-45deg) translate(-6px, 6px)";
+                hamburger.children[1].style.opacity = "0";
+                hamburger.children[2].style.transform = "rotate(45deg) translate(-6px, -7px)";
+            } else {
+                hamburger.children[0].style.transform = "none";
+                hamburger.children[1].style.opacity = "1";
+                hamburger.children[2].style.transform = "none";
+            }
+        });
+
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                sideMenu.classList.remove("active");
+                hamburger.children[0].style.transform = "none";
+                hamburger.children[1].style.opacity = "1";
+                hamburger.children[2].style.transform = "none";
+            });
+        });
+
+        // ==========================================
+        // ساخت خودکار قلب‌های متحرک در پس‌زمینه
+        // ==========================================
+        const container = document.getElementById('heartsContainer');
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '♥';
+            
+            // پخش شدن بهتر قلب‌ها در کل صفحه
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = (Math.random() * 10 + 90) + 'vh'; 
+            heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            
+            // تغییر رندوم سایز قلب‌ها
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            
+            container.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 8000); // زمان بیشتر برای اینکه تا بالای صفحه برسند
+        }
+        
+        setInterval(createHeart, 600);
+    </script>
+</body>
+</html>
